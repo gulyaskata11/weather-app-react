@@ -17,9 +17,8 @@ function App() {
       fetch(fetchUrl)
         .then(res => res.json())
         .then(data => {
-          console.log(data)
-          if(data.cod === '404'){
-            alert(data.message.charAt(0).toUpperCase() + data.message.slice(1))
+          if(data.cod !== 200){
+            alert('Unexpected error happened. ' + data.message.charAt(0).toUpperCase() + data.message.slice(1))
           }else{
             setWeatherData(data)
           }
