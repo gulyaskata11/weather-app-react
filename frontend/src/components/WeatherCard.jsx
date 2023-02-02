@@ -2,7 +2,7 @@ import React from 'react'
 import './WeatherCard.css'
 import { Text, Image, Spacer, Card } from "@nextui-org/react"
 
-function WeatherCard({weatherData}) {
+function WeatherCard({weatherData, myCities, setMyCities}) {
 
   let icon = weatherData.weather[0].icon
   let visibility = weatherData.visibility.toString()
@@ -15,13 +15,19 @@ function WeatherCard({weatherData}) {
     }
   }
 
+  const handleMyCities = () => {
+    if(!myCities.includes(weatherData.name)){
+      return setMyCities([...myCities, weatherData.name])
+    }
+  }
+
   return (
     <div className='WeatherCard'>
-      <section>
+      <section className='sec-1'>
         <Text h1 size={80} css={{
           textGradient: "45deg, $red700 20%, $pink700 100%",
           }}
-          weight="bold" >{weatherData.name}</Text>
+          weight="bold" onClick={handleMyCities} >{weatherData.name}</Text>
         <Image
           src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
           alt='icon'
@@ -44,10 +50,10 @@ function WeatherCard({weatherData}) {
           </Card.Header>
           <Card.Body css={{ py: "$10" }}>
             <Text h4 size="$2xl" >
-              Temperature: {weatherData.main.temp} °C
+              Temperature: {Math.floor(weatherData.main.temp)} °C
             </Text>
             <Text h4 size="$2xl" >
-              Feels like: {weatherData.main.feels_like} °C
+              Feels like: {Math.floor(weatherData.main.feels_like)} °C
             </Text>
             <Text h4 size="$2xl" >
               Wind speed: {weatherData.wind.speed} km/h
