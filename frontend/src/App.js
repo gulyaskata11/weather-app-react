@@ -5,6 +5,7 @@ import WeatherCard from './components/WeatherCard';
 import Header from './components/Header';
 import ViewedCities from './components/ViewedCities';
 import MyCities from './components/MyCities';
+import Forecast from './components/Forecast'
 
 function App() {
 
@@ -12,9 +13,11 @@ function App() {
   const [cityName, setCityName] = useState("")
   const [viewedCities, setViewedCities] = useState([])
   const [myCities, setMyCities] = useState([])
+  const [forecast, setForecast] = useState({})
 
   const apiKey = "b63d18c1c8eada43a9173853b0a367ef"
   let fetchUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&lang=en&units=metric`
+  let fetchUrlForcast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&lang=en&units=metric`
 
    useEffect(() => {
     if(cityName !== ""){
@@ -27,20 +30,26 @@ function App() {
             setWeatherData(data)
           }
         })
+
+      fetch(fetchUrlForcast)
+        .then(res => res.json())
+        .then(data => {
+          setForecast(data)
+        })
     }
   }, [cityName]) 
  
   const handleCityName = (inputValue) => {
     setCityName(inputValue)
   }
-  console.log(cityName)
-  console.log(viewedCities)
+  console.log(forecast)
+  /* console.log(cityName)
+  console.log(viewedCities) */
 
   useEffect(() => {
     if(Object.keys(weatherData).length > 0){
       if(!viewedCities.includes(weatherData.name)){
-        let newCity = [weatherData.name]
-        setViewedCities([...viewedCities].concat(newCity))
+        setViewedCities([...viewedCities, weatherData.name])
       }
     }
   }, [weatherData])
@@ -58,7 +67,7 @@ function App() {
     }
   }, [myCities]);
 
-  console.log(myCities)
+  //console.log(myCities)
 
   return (
     <div className="App">
@@ -69,6 +78,7 @@ function App() {
         {Object.keys(weatherData).length > 0 && <WeatherCard weatherData={weatherData} myCities={myCities} setMyCities={setMyCities} />} 
         <ViewedCities viewedCities={viewedCities} handleCityName={handleCityName} />
       </div>
+      {Object.keys(forecast).length > 0 && <Forecast forecast={forecast} />}
     </div>
   );
 }
