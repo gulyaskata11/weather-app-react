@@ -42,8 +42,8 @@ function App() {
   const handleCityName = (inputValue) => {
     setCityName(inputValue)
   }
-  console.log(forecast)
-  /* console.log(cityName)
+  /* console.log(forecast)
+  console.log(cityName)
   console.log(viewedCities) */
 
   useEffect(() => {

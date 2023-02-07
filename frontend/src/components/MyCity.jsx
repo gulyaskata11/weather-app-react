@@ -1,4 +1,5 @@
 import React from 'react'
+import { Text, Button } from "@nextui-org/react";
 
 const MyCity = ({city, myCities, setMyCities, handleCityName}) => {
 
@@ -15,10 +16,17 @@ const MyCity = ({city, myCities, setMyCities, handleCityName}) => {
     }
 
     return (
-        <div>
-            <div onClick={grabCityName}> {city} </div>
-            <button onClick={deleteCity} >X</button>
+        <>
+        <div className='MyCity' >
+            <Text b onClick={grabCityName} css={{
+              color:'antiquewhite',
+              cursor:'pointer',
+              }} >{city}
+            </Text>
+            <Button size="xs" flat color="error" auto onClick={deleteCity} >Delete</Button>
         </div>
+        <hr />
+        </>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import './ViewedCity.css'
+import { Text, Spacer } from "@nextui-org/react";
 
 const ViewedCity = ({city, handleCityName}) => {
 
@@ -8,9 +8,14 @@ const ViewedCity = ({city, handleCityName}) => {
     }
 
     return (
-       
-        <div className='viewedcity' onClick={grabCityName} > {city} </div>
- 
+        <div>
+            <Text b onClick={grabCityName} css={{
+                color:'antiquewhite',
+                cursor:'pointer',
+                }} >{city}
+            </Text>
+            <Spacer y={0.4} />
+       </div>
     )
 }
 

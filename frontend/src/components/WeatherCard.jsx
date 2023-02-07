@@ -1,10 +1,10 @@
 import React from 'react'
-import './WeatherCard.css'
-import { Text, Image, Spacer, Card, Grid } from "@nextui-org/react"
+import { Text, Image, Tooltip, Card, Grid } from "@nextui-org/react"
 
 function WeatherCard({weatherData, myCities, setMyCities}) {
 
   let icon = weatherData.weather[0].icon
+ //api icon: {`http://openweathermap.org/img/wn/${icon}@2x.png`}
   let visibility = weatherData.visibility.toString()
 
   const handleVisibility = () => {
@@ -24,14 +24,21 @@ function WeatherCard({weatherData, myCities, setMyCities}) {
   return (
     <>
     <div className='WeatherCard'>
-    <Card css={{ mw: "850px" }} >
+    <Card css={{ minWidth: "650px" }} >
       <Card.Header css={{backgroundColor:'$yellow400'}} >
-        <Grid.Container>
+        <Grid.Container css={{maxWidth:'450px'}} >
           <Grid xs={12} >
+            <Tooltip
+              color="invert"
+              content="Add to My favorite cities"
+              placement="topStart"
+            >
             <Text b size={50} css={{
               textGradient: "45deg, $red700 20%, $pink700 100%",
+              cursor:'pointer'
               }}
               weight="bold" onClick={handleMyCities} >{weatherData.name}</Text>
+            </Tooltip>  
           </Grid>
           <Grid xs={12} >
             <Text css={{
@@ -40,7 +47,7 @@ function WeatherCard({weatherData, myCities, setMyCities}) {
           </Grid>
         </Grid.Container>
         <Image
-          src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+          src={`/icon/${(icon)}.png`}
           alt='icon'
           width={120}
           height={120}
@@ -52,7 +59,7 @@ function WeatherCard({weatherData, myCities, setMyCities}) {
       <Grid.Container justify='space-evently' alignItems='center' css={{px:'$6'}} gap={2} >
          <Grid xs={6} >
             <Text h1 size="$9xl" >
-              {Math.floor(weatherData.main.temp)}°C
+              {Math.round(weatherData.main.temp)}°C
             </Text>
         </Grid>
         <Grid xs={6} >
@@ -66,7 +73,7 @@ function WeatherCard({weatherData, myCities, setMyCities}) {
             <Card.Divider />
             <Card.Body css={{ py: "$10" }}>
               <Text h3 >
-                Feels like: {Math.floor(weatherData.main.feels_like)} °C
+                Feels like: {Math.round(weatherData.main.feels_like)} °C
               </Text>
               <Text h3 >
                 Wind speed: {weatherData.wind.speed} km/h
