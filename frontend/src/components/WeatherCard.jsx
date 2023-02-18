@@ -17,7 +17,8 @@ function WeatherCard({weatherData, myCities, setMyCities}) {
 
   const handleMyCities = () => {
     if(!myCities.includes(weatherData.name)){
-      return setMyCities([...myCities, weatherData.name])
+      setMyCities([...myCities, weatherData.name])
+      localStorage.setItem("myCities", JSON.stringify([...myCities, weatherData.name]));
     }
   }
 

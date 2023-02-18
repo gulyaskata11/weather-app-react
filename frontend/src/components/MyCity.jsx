@@ -6,7 +6,8 @@ const MyCity = ({city, myCities, setMyCities, handleCityName}) => {
     const deleteCity = () => {
         if(myCities.includes(city)){
             let withoutCity = myCities.filter((elem) => elem !== city)
-            return setMyCities([...withoutCity])
+            setMyCities([...withoutCity])
+            localStorage.setItem("myCities", JSON.stringify([...withoutCity]))
         }
     }
 

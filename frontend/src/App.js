@@ -61,13 +61,13 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (myCities.length > 0) {
       localStorage.setItem("myCities", JSON.stringify(myCities));
     }
-  }, [myCities]);
+  }, [myCities]); */
 
-  //console.log(myCities)
+  console.log(myCities)
 
   return (
     <div className="App">
